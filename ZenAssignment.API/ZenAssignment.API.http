@@ -1,0 +1,6 @@
+@ZenAssignment.API_HostAddress = http://localhost:5073
+
+GET {{ZenAssignment.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

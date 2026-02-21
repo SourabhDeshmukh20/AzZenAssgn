@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ZenAssignment.API/ZenAssignment.API.csproj" />
+  <Project Path="ZenAssignment.FuncApp/ZenAssignment.FuncApp.csproj" />
+</Solution>
