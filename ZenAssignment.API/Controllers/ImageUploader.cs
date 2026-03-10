@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZenAssignment.API.Interface;
@@ -8,6 +9,7 @@ namespace ZenAssignment.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "ZenAssgn.ImageUpload")]
     public class ImageUploader : ControllerBase
     {
         private IImageRepo _imageRepo;

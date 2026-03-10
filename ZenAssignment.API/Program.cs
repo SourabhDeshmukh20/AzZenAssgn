@@ -1,10 +1,22 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Web;
 using ZenAssignment.API.Interface;
 using ZenAssignment.API.Repository;
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAD"));
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ZenAssgn.ImageUpload",
+        policy => policy.RequireScope("ZenAssgn.ImageUpload"));
+});
 
 // Add services to the container.
 
