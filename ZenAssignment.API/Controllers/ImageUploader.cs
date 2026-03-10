@@ -30,10 +30,9 @@ namespace ZenAssignment.API.Controllers
 
                 try
                 {
-                    _telemetryClient.TrackTrace($"Image Upload process started at "+DateTime.Now);
-                    var url = await _imageRepo.UploadImageAsync(file);
-                    _telemetryClient.TrackTrace($"Image upload process completed successfully at" + DateTime.Now);
-                    return Ok(new { Url = url });
+                    _telemetryClient.TrackTrace($"Image Upload process started at " + DateTime.Now);
+                    var retVal = await _imageRepo.UploadImageAsync(file);
+                    return Ok(new { message = retVal });
                 }
                 catch (Exception ex)
                 {

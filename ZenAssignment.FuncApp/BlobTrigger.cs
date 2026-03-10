@@ -16,7 +16,7 @@ namespace ZenAssignment.Func
         {
             try
             {
-                log.LogInformation($"Blob trigger function processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+                log.LogInformation($"Blob trigger function processed {name} \n of size: {myBlob.Length} bytes");
 
                 // Generate metadata
                 var metadata = new Dictionary<string, object>
@@ -36,7 +36,7 @@ namespace ZenAssignment.Func
             }
             catch (Exception ex)
             {
-                log.LogError($"An eError occured while processing blob {name}: {ex.Message}");
+                log.LogError($"An error occured while processing blob {name}: {ex.Message}");
                 throw;
             }
         }

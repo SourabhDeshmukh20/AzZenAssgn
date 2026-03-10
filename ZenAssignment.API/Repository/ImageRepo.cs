@@ -27,7 +27,9 @@ namespace ZenAssignment.API.Repository
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
             await containerClient.CreateIfNotExistsAsync();
 
-            _telemetryClient.TrackTrace("Blob service container client found and container created if not exists");
+            _telemetryClient.TrackTrace("Checking if the blob container " + _containerName + " is present in the storage account. It will be created if not present");
+
+            await containerClient.CreateIfNotExistsAsync();
 
             var blobClient = containerClient.GetBlobClient($"{file.Name}");
 
@@ -38,13 +40,14 @@ namespace ZenAssignment.API.Repository
                 await blobClient.UploadAsync(stream, overwrite: true);
             }
 
-            _telemetryClient.TrackMetric("ImageUploadSizeMB", file.Length / 1024.0);
-            _telemetryClient.TrackMetric("ImageUploadedCount", 1);
-            _telemetryClient.TrackMetric($"ImageUploadedIn{_containerName}", 1);
+            _telemetryClient.TrackMetric("Uploaded image size :", file.Length / 1024.0);
+            _telemetryClient.TrackMetric("No of images uploaded", 1);
+            _telemetryClient.TrackMetric($"Image uploaded at {_containerName}", 1);
 
-            _telemetryClient.TrackTrace($"Image uploaded successfully to blob storage. Image Path: {blobClient.Uri.ToString()}");
+            _telemetryClient.TrackTrace($"Image uploaded successfully to blob storage at path: {blobClient.Uri.ToString()} on {DateTime.Now}");
 
-            return blobClient.Uri.ToString();
+            return "Image has been uploaded in the blob storage.";
         }
+    }
     }
 }
