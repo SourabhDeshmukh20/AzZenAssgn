@@ -64,6 +64,7 @@ var app = builder.Build();
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
